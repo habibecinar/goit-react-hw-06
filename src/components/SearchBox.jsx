@@ -1,4 +1,5 @@
-function SearchBox({value,onChange}) {
+//arama filtresi (addContact dispatch eder)
+function SearchBox({ value, onChange }) {
   return (<div>
     <label htmlFor="search">Find contacts by name</label>
     <input

@@ -3,34 +3,40 @@ import './App.css'
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import SearchBox from "./components/SearchBox";
+import { useSelector, useDispatch } from "react-redux";
+import { selectContacts, addContact, deleteContact } from "./redux/contactsSlice";
+
 
 function App() {
-  const [contacts, setContacts] = useState([{id:1,name:"Kerem",number:"0124356"}]);
-  const handleAddContact = (newContact) => {
-    setContacts(prevContacts => [...prevContacts, newContact]);
-  };
+  const contacts = useSelector(selectContacts);
+const dispatch = useDispatch();
+
+const handleAddContact = (newContact) => {
+  dispatch(addContact(newContact));
+};
+
+const handleDeleteContact = (id) => {
+  dispatch(deleteContact(id));
+};
+
  const [filter, setFilter] = useState("");
 
   const filteredContacts = contacts.filter((contact) =>
   contact.name.toLowerCase().includes(filter.toLowerCase())
 );
-
-   const handleDeleteContact = (id) => {
-     setContacts((prevContacts) =>
-       prevContacts.filter((contact) => contact.id !== id)
-     );
-   };
   return (
     <div>
       <h1>Phonebook</h1>
       <ContactForm onAddContact={handleAddContact} />
 
       <h2>Contacts</h2>
+      <SearchBox value={filter} onChange={setFilter} />
+
       <ContactList
         contacts={filteredContacts}
         onDeleteContact={handleDeleteContact}
       />
-      <SearchBox value={filter} onChange={setFilter} />
+
     </div>
   );
 }

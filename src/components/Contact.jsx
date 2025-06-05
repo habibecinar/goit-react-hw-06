@@ -1,5 +1,4 @@
-
-
+//kişi kartı,silme butonu
 function Contact({ contact, onDelete }) {
     return (
         <div>
